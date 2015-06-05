@@ -1,8 +1,6 @@
 <?php
 if ( ! defined('BASE_PATH'))
-{
 	define('BASE_PATH', dirname(__FILE__) . DIRECTORY_SEPARATOR);
-}
 
 /**
  * Protect your WordPress site from Vulnerability Scanners
@@ -81,9 +79,7 @@ class WP_SEC
 		{
 			$path = BASE_PATH . $file;
 			if (file_exists($path))
-			{
 				@unlink($path);
-			}
 		}
 	}
 
@@ -92,8 +88,14 @@ class WP_SEC
 	 */
 	private function self_remove()
 	{
-		@unlink(__FILE__);
+		if (@unlink(__FILE__))
+			exit('All tasks have been completed!');
 	}
 }
+
+/**
+ * We need a task runner
+ */
+$runner = new WP_SEC;
 
 /* Coded by Juno_okyo */
