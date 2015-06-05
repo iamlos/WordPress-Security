@@ -59,17 +59,19 @@ class WP_SEC
 		// Edit Username Input
 		$search = 'name="log" id="user_login"';
 		$replace = 'name="log" autocomplete="off" id="user_login"';
-		$new_source = str_replace($search, $replace, $org_source);
-		unset($org_source);
+		if (FALSE !== strpos($org_source, $search))
+			$new_source = str_replace($search, $replace, $org_source);
 		
 		// Edit Password Input
 		$search = 'name="pwd" id="user_pass"';
 		$replace = 'name="pwd" autocomplete="off" id="user_pass"';
-		$new_source = str_replace($search, $replace, $new_source);
+		if (FALSE !== strpos($new_source, $search))
+			$new_source = str_replace($search, $replace, $new_source);
 
 		// Update wp-login.php
 		file_put_contents($wp_login, $new_source);
-		unset($new_source);
+
+		unset($search, $replace, $org_source, $new_source);
 	}
 
 	/**
